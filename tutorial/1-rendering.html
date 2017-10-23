@@ -101,7 +101,13 @@ var Message = Backbone.Model.extend({
      * Putting it into the initialize function let's us be sure that
      * all models that are created will have event listeners on them.
      */
-    this.on(YOUR CODE HERE);
+    this.on('change', 
+      function (e){
+        console.log ('something has changed!!');
+        console.log (e);
+        renderSomethingOnThePage(this.get('message'))
+        this.alertThisMessage()
+      }, this);
     /* It is your turn to write the event handler.
      *
      * Make an event listener that will listen for a `change` in this model's
@@ -126,7 +132,7 @@ var Message = Backbone.Model.extend({
      * If you're curious about these functions, read up on them in
      * [the documentation](http://backbonejs.org/#Model-get).
      */
-    alert(this.get('message'));
+    alert(this.get('change'));
   }
 });
 
@@ -140,9 +146,9 @@ var Message = Backbone.Model.extend({
 var myNewMessage = new Message();
 
 // ...and then make a change on that model to see it render
-myNewMessage.set({message: 'someMessage'});
+myNewMessage.set({change: "test", message: 'I have changed'});
 
-
+// myNewMessage.alertThisMessage('tests')
 /* Once the model is rendering on the `change` event, move on to step 3!
  *
  * So far we have created models by extending Backbone.Model,
